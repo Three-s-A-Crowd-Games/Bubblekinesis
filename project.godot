@@ -18,5 +18,5 @@ config/icon="res://icon.svg"
 
 folder_colors={
 "res://assets/": "pink",
-"res://sound/": "teal"
+"res://assets/sound/": "teal"
 }
