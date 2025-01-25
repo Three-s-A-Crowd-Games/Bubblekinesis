@@ -5,6 +5,7 @@ extends Node2D
 
 var noisy = FastNoiseLite.new()
 var star_noise = FastNoiseLite.new()
+var bg_size = 2058
 
 var time_to_next_spawn :float = 10
 
@@ -30,15 +31,15 @@ func _ready() -> void:
 	star_noise.fractal_lacunarity = 5.0
 	
 	var star_array :PackedByteArray = []
-	for x in range(1028):
-		for y in range(1028):
+	for x in range(bg_size):
+		for y in range(bg_size):
 			if star_noise.get_noise_2d(x,y) > 0.6:
 				star_array.append(255)
 			else:
 				star_array.append(0)
 	
 	var star_tex = ImageTexture.new()
-	star_tex.set_image(Image.create_from_data(1028,1028, false, Image.FORMAT_L8, star_array))
+	star_tex.set_image(Image.create_from_data(bg_size,bg_size, false, Image.FORMAT_L8, star_array))
 	$Parallax2D/Sprite2D.texture = star_tex
 	
 	init_spawns()
