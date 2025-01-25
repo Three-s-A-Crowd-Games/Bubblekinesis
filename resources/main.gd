@@ -10,7 +10,8 @@ var time_to_next_spawn :float = 10
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Play_Area_Coll.shape.size = GameState.play_area * 2
-	Next_Area_Coll.shape.size = Vector2() * 2
+	var next_size = GameState.play_area_upgrades[GameState.cur_play_area_upgrade+1]
+	Next_Area_Coll.shape.size = Vector2(next_size, next_size) * 2
 	
 	noisy.frequency = 10
 	noisy.fractal_gain = 1.5

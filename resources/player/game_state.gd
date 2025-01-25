@@ -1,5 +1,6 @@
 extends Node
 
+# Play area is actually this * 2
 var play_area :Vector2 = Vector2(256, 256):
 	set(value):
 		play_area_update.emit(value)
