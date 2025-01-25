@@ -20,7 +20,6 @@ angular_damp_mode = 1
 script = ExtResource("1_kf4dc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 0.652753
 texture = ExtResource("2_5r2js")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -5,7 +5,7 @@ class_name BubbleGenerator
 @export var auto_close_gap_distance = 30
 @export var min_draw_step_size = 2
 @export var base_line_thickness = 3
-@export var debug_draw := false
+@export var debug_draw := true
 
 var points: PackedVector2Array = []
 var is_drawing := false
@@ -27,10 +27,10 @@ func _physics_process(_delta) -> void:
 	if is_drawing or points.size() == 0: return
 	
 	var begin_end_distance := points[0].distance_to(points[-1])
-	print("begin_end_distance ", begin_end_distance)
 	if begin_end_distance > auto_close_gap_distance:
 		points.clear()
 		queue_redraw()
+		prints("No bubble, because end points are too far apart:", begin_end_distance)
 		return
 	
 	var space_state = get_world_2d().direct_space_state
@@ -38,7 +38,6 @@ func _physics_process(_delta) -> void:
 	var q_shape := ConvexPolygonShape2D.new()
 	q_shape.set_point_cloud(points)
 	query.shape = q_shape
-	query.transform = Transform2D(Vector2.RIGHT, Vector2.DOWN, cam.position / cam.zoom)
 	var result := space_state.intersect_shape(query)
 	
 	var q_rect = q_shape.get_rect()
@@ -47,6 +46,8 @@ func _physics_process(_delta) -> void:
 	var max_ratio := 0.0
 	var t_node: Spobject
 	var t_rect
+	
+	prints("Number of collision check results:", result.size())
 	
 	for collission_data in result:
 		var collider = collission_data["collider"] as Spobject
@@ -60,12 +61,13 @@ func _physics_process(_delta) -> void:
 			
 			var intersection = col_rect.intersection(q_rect)
 			var ratio = intersection.get_area() / col_rect.get_area()
-			print("Intersection ratio: ", ratio)
 			if ratio > max_ratio:
 				max_ratio = ratio
 				t_node = collider
 				t_rect = col_rect
 				debug_target_rect = t_rect
+		else:
+			print("Collider is no Spobject")
 			
 	if max_ratio >= generation_area_threshold:
 		var search_res := t_node.find_children("*", "Bubbleable", false, false)
@@ -74,6 +76,15 @@ func _physics_process(_delta) -> void:
 			print(bubbleable.bubbled)
 			if not bubbleable.bubbled:
 				bubbleable.bubble_up()
+				print("Successfully bubbled up")
+			else:
+				print("Spobject is already bubbled")
+		else:
+			print("Spobject has no bubbleable component")
+	else:
+		prints("No bubble because intersection ratio is too low:", max_ratio)
+		printt("target rect", t_rect)
+		printt("query rect", q_rect)
 	points.clear()
 	queue_redraw()
 		
