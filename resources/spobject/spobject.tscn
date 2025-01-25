@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3rbmttulavuh"]
+[gd_scene load_steps=5 format=3 uid="uid://c3rbmttulavuh"]
 
 [ext_resource type="Script" path="res://resources/spobject/spobject.gd" id="1_kf4dc"]
+[ext_resource type="Texture2D" uid="uid://eeahy4ax26vh" path="res://assets/sprites/spobjects/bubbleable/solar_panel_1.png" id="2_5r2js"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dm3xq"]
 friction = 0.0
@@ -19,6 +20,8 @@ angular_damp_mode = 1
 script = ExtResource("1_kf4dc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.652753
+texture = ExtResource("2_5r2js")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_3x5de")

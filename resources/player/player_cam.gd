@@ -2,10 +2,10 @@ extends Camera2D
 
 @export var sens = 0.1
 @export var zoom_sens = 0.1
-@export var max_zoom = 10
+@export var max_zoom = 3
 
 var cur_upgrade = 0
-var zoom_upgrades = [ 6, 4, 2, 1 ]
+var zoom_upgrades = [ 2, 1, 0.5, 0.25 ]
 
 func _ready() -> void:
 	GameState.play_area_update.connect(change_play_area)
