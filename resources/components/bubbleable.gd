@@ -27,7 +27,11 @@ func bubble_up() -> void:
 	get_parent().body_entered.connect(bubble_used)
 	$Sprite2D.visible = true
 
-func bubble_used(_body) -> void:
+func bubble_used(body :Node2D) -> void:
+	if body is Spobject:
+		var other_bubbleable = body.find_children("*", "Bubbleable", false, false)
+		if other_bubbleable.size() == 1 and other_bubbleable[0].bubbled:
+			return
 	bubble_lives -= 1
 	if bubble_lives <= 0:
 		bubbled = false
