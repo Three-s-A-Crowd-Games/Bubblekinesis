@@ -10,9 +10,9 @@ var new_shape :Shape2D
 
 var size_per_tier = [8, 20, 36]
 var tex_per_tier = [
-	"res://assets/sprites/bubble_s.png",
-	"res://assets/sprites/bubble_m.png",
-	"res://assets/sprites/bubble_l.png"
+	"res://assets/sprites/bubbles/bubble_s.png",
+	"res://assets/sprites/bubbles/bubble_m.png",
+	"res://assets/sprites/bubbles/bubble_l.png"
 ]
 
 func setup(size_tier :int, ori_shape :Shape2D) -> void:
