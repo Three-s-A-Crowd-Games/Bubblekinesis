@@ -33,5 +33,11 @@ shape = SubResource("RectangleShape2D_pwvis")
 visible = false
 texture = SubResource("ImageTexture_6tsv4")
 
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+z_index = -50
+
 [connection signal="body_exited" from="PlayArea" to="." method="_on_play_area_body_exited"]
 [connection signal="body_exited" from="NextArea" to="." method="_on_next_area_body_exited"]
