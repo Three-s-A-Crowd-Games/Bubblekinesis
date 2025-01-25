@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwmka1u2q5x34"]
+[gd_scene load_steps=8 format=3 uid="uid://bwmka1u2q5x34"]
 
 [ext_resource type="Script" path="res://resources/main.gd" id="1_1f5gh"]
 [ext_resource type="PackedScene" uid="uid://dpjaqyvpqyeu5" path="res://resources/player/space_station.tscn" id="1_s40s2"]
 [ext_resource type="PackedScene" uid="uid://hnrje23lpbgf" path="res://resources/player/player_cam.tscn" id="2_5o1tk"]
+[ext_resource type="Script" path="res://resources/player/bubble_generator.gd" id="4_krwtq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpokk"]
 
@@ -38,6 +39,9 @@ scroll_scale = Vector2(0.5, 0.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
 z_index = -50
+
+[node name="BubbleGenerator" type="Node2D" parent="."]
+script = ExtResource("4_krwtq")
 
 [connection signal="body_exited" from="PlayArea" to="." method="_on_play_area_body_exited"]
 [connection signal="body_exited" from="NextArea" to="." method="_on_next_area_body_exited"]

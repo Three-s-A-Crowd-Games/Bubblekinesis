@@ -2,9 +2,10 @@ extends Node2D
 class_name BubbleGenerator
 
 @export var generation_area_threshold = 0.85
-@export var auto_close_gap_distance = 10
+@export var auto_close_gap_distance = 30
 @export var min_draw_step_size = 2
-@export var debug_draw := true
+@export var base_line_thickness = 3
+@export var debug_draw := false
 
 var points: PackedVector2Array = []
 var is_drawing := false
@@ -67,9 +68,12 @@ func _physics_process(_delta) -> void:
 				debug_target_rect = t_rect
 			
 	if max_ratio >= generation_area_threshold:
-		t_node
-		print("+++++++++++++++++++++++++++bubbled+++++++++++++++++++++++++++")
-		#TODO: check if collider has bubbleable and if is bubbled and make bubble in case
+		var search_res := t_node.find_children("*", "Bubbleable", false, false)
+		if search_res.size() > 0:
+			var bubbleable: Bubbleable = search_res[0]
+			print(bubbleable.bubbled)
+			if not bubbleable.bubbled:
+				bubbleable.bubble_up()
 	points.clear()
 	queue_redraw()
 		
@@ -108,7 +112,7 @@ func _unhandled_input(event):
 
 func _draw():
 	if points.size() > 1:
-		draw_polyline(points, Color.RED, 6 / cam.zoom.x)
+		draw_polyline(points, Color.RED, base_line_thickness / cam.zoom.x)
 	
 	if not debug_draw: return
 	draw_rect(debug_target_rect, Color(Color.RED, 0.5))

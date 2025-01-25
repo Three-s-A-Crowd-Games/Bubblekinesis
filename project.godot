@@ -81,7 +81,6 @@ common/physics_ticks_per_second=90
 2d/default_angular_damp=0.0
 2d/sleep_threshold_linear=0.1
 2d/sleep_threshold_angular=0.1
-2d/solver/solver_iterations=32
 2d/solver/contact_recycle_radius=0.1
 2d/solver/contact_max_separation=0.1
 2d/solver/contact_max_allowed_penetration=0.1
