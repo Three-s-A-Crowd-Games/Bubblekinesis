@@ -58,6 +58,16 @@ zoom_out={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":16,"position":Vector2(220, 18),"global_position":Vector2(234, 73),"factor":1.0,"button_index":5,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+rmb={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(138, 16),"global_position":Vector2(147, 62),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+lmb={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(142, 21),"global_position":Vector2(151, 67),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -65,13 +75,13 @@ zoom_out={
 
 [physics]
 
-2d/run_on_separate_thread=true
 common/physics_ticks_per_second=90
 2d/physics_engine="GodotPhysics2D"
 2d/default_linear_damp=0.0
 2d/default_angular_damp=0.0
 2d/sleep_threshold_linear=0.1
 2d/sleep_threshold_angular=0.1
+2d/solver/solver_iterations=32
 2d/solver/contact_recycle_radius=0.1
 2d/solver/contact_max_separation=0.1
 2d/solver/contact_max_allowed_penetration=0.1
