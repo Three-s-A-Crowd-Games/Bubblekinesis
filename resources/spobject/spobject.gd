@@ -7,7 +7,7 @@ extends RigidBody2D
 
 enum Type {
 	RESOURCE,
-	METEOR
+	COMET
 }
 
 # Path and Size-Tier: S=0, M=1, L=2
@@ -19,19 +19,28 @@ const resources = {
 	"res://assets/sprites/spobjects/bubbleable/sputnik.png": 2,
 }
 
+const comets = [
+	"res://assets/sprites/spobjects/non_bubbleable/comet_1.png",
+	"res://assets/sprites/spobjects/non_bubbleable/comet_2.png",
+	"res://assets/sprites/spobjects/non_bubbleable/comet_3.png",
+	"res://assets/sprites/spobjects/non_bubbleable/comet_4.png",
+	"res://assets/sprites/spobjects/non_bubbleable/comet_5.png",
+]
+
 var chance_for_resource := 0.5
-
 var type
-
 var size_tier :int
 
 func _ready() -> void:
-	type = Type.RESOURCE if randf() < chance_for_resource else Type.METEOR
+	type = Type.RESOURCE if randf() < chance_for_resource else Type.COMET
 	
 	if type == Type.RESOURCE:
 		add_child(load("res://resources/components/bubbleable.tscn").instantiate())
 		var key :String = resources.keys()[randi_range(0,resources.keys().size() - 1)]
 		size_tier = resources[key]
+		Sprite.texture = load(key)
+	elif type == Type.COMET:
+		var key :String = comets[randi_range(0,comets.size() - 1)]
 		Sprite.texture = load(key)
 	else:
 		Sprite.texture =  load("res://assets/32x32testthing.png")
