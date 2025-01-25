@@ -20,5 +20,13 @@ func _process(delta :float) -> void:
 
 func _on_capture_area_body_entered(body: Node2D) -> void:
 	if body is Spobject and body.type == Spobject.Type.RESOURCE:
+		body.captured = true
 		GameState.captured_resources += body.worth
-		body.queue_free()
+		var tween := get_tree().create_tween()
+		tween.tween_property(body, "scale", Vector2(0,0), 0.5)
+		tween.parallel().tween_property(body, "global_position", Vector2(0,0), 0.5)
+		tween.tween_callback(delete_body.bind(body))
+		tween.play()
+
+func delete_body(body :Node2D) -> void:
+	body.queue_free()

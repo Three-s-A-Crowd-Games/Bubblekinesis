@@ -34,12 +34,15 @@ func setup(size_tier :int, ori_shape :Shape2D) -> void:
 			Animator.animation = "l"
 
 func bubble_up() -> void:
-	bubbled = true
-	get_parent().set_collider_shape(new_shape)
-	get_parent().body_entered.connect(bubble_used)
-	$Sprite2D.visible = true
+	if not get_parent().captured:
+		bubbled = true
+		get_parent().set_collider_shape(new_shape)
+		get_parent().body_entered.connect(bubble_used)
+		$Sprite2D.visible = true
 
 func bubble_used(body :Node2D) -> void:
+	if get_parent().captured:
+		return
 	if body is Spobject:
 		var other_bubbleable = body.find_children("*", "Bubbleable", false, false)
 		if other_bubbleable.size() == 1 and other_bubbleable[0].bubbled:

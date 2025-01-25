@@ -31,6 +31,7 @@ var chance_for_resource := 0.5
 var type
 var size_tier :int
 var worth :int
+var captured := false
 
 func _ready() -> void:
 	type = Type.RESOURCE if randf() < chance_for_resource else Type.COMET
