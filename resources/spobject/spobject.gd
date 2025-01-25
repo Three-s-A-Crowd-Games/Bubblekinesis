@@ -41,8 +41,6 @@ func _ready() -> void:
 	if type == Type.RESOURCE:
 		bubbleable = load("res://resources/components/bubbleable.tscn").instantiate()
 		add_child(bubbleable)
-		var flickable = Flickable.new(self)
-		add_child(flickable)
 		
 		var key :String = resources.keys()[randi_range(0,resources.keys().size() - 1)]
 		size_tier = resources[key]
