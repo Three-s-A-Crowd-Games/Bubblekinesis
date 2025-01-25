@@ -4,14 +4,9 @@ extends Camera2D
 @export var zoom_sens = 0.1
 @export var max_zoom = 10
 
-var cur_upgrade = 1
+var cur_upgrade = 0
 
-var zoom_upgrades = {
-	1 : 6,
-	2 : 4,
-	3 : 2,
-	4 : 1
-}
+var zoom_upgrades = [ 6, 4, 2, 1 ]
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.is_action_pressed("cam_drag"):
