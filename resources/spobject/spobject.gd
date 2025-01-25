@@ -5,14 +5,41 @@ extends RigidBody2D
 @onready var Collider := $CollisionShape2D
 @onready var Sprite := $Sprite2D
 
+enum Type {
+	RESOURCE,
+	METEOR
+}
+
+# Path and Size-Tier: S=0, M=1, L=2
+const resources = {
+	"res://assets/sprites/spobjects/bubbleable/rocket_part.png": 2,
+	"res://assets/sprites/spobjects/bubbleable/rocket_part_2.png": 1,
+	"res://assets/sprites/spobjects/bubbleable/satellite.png": 1,
+	"res://assets/sprites/spobjects/bubbleable/solar_panel_1.png": 2,
+	"res://assets/sprites/spobjects/bubbleable/sputnik.png": 2,
+}
+
+var chance_for_resource := 0.5
+
+var type
+
 var size_tier :int
 
 func _ready() -> void:
+	type = Type.RESOURCE if randf() < chance_for_resource else Type.METEOR
+	
+	if type == Type.RESOURCE:
+		add_child(load("res://resources/components/bubbleable.tscn").instantiate())
+		var key :String = resources.keys()[randi_range(0,resources.keys().size() - 1)]
+		size_tier = resources[key]
+		Sprite.texture = load(key)
+	else:
+		Sprite.texture =  load("res://assets/32x32testthing.png")
+	
 	linear_velocity = Vector2(randf_range(-1,1), randf_range(-1,1))
 	angular_velocity = randf_range(-0.3,0.3)
-	Collider.shape.height = ($Sprite2D.texture.get_height() * $Sprite2D.scale.y)
-	Collider.shape.radius = ($Sprite2D.texture.get_width() * $Sprite2D.scale.x) / 2
-	size_tier = 0
+	Collider.shape.height = (Sprite.texture.get_height() * Sprite.scale.y)
+	Collider.shape.radius = (Sprite.texture.get_width() * Sprite.scale.x) / 2
 
 func _physics_process(delta: float) -> void:
 	move_and_collide(linear_velocity*delta, false, 0.01, false)

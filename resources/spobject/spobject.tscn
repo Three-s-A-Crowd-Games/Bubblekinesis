@@ -1,13 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3rbmttulavuh"]
+[gd_scene load_steps=4 format=3 uid="uid://c3rbmttulavuh"]
 
 [ext_resource type="Script" path="res://resources/spobject/spobject.gd" id="1_kf4dc"]
-[ext_resource type="Texture2D" uid="uid://xhkwsp7a1nd6" path="res://assets/32x32testthing.png" id="2_vmkk7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dm3xq"]
 friction = 0.0
 bounce = 1.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3x5de"]
+resource_local_to_scene = true
 
 [node name="Spobject" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_dm3xq")
@@ -19,7 +19,6 @@ angular_damp_mode = 1
 script = ExtResource("1_kf4dc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_vmkk7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_3x5de")
