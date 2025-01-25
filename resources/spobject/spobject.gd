@@ -59,3 +59,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	move_and_collide(linear_velocity*delta, false, 0.01, false)
+
+func set_collider_shape(shape :Shape2D) -> void:
+	Collider.shape = shape

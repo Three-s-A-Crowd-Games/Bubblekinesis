@@ -5,7 +5,7 @@ class_name BubbleGenerator
 @export var auto_close_gap_distance = 30
 @export var min_draw_step_size = 2
 @export var base_line_thickness = 3
-@export var debug_draw := true
+@export var debug_draw := false
 
 var points: PackedVector2Array = []
 var is_drawing := false

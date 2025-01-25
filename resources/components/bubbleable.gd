@@ -17,13 +17,13 @@ var tex_per_tier = [
 
 func setup(size_tier :int, ori_shape :Shape2D) -> void:
 	$Sprite2D.texture = load(tex_per_tier[size_tier])
-	orig_shape = ori_shape
+	orig_shape = ori_shape.duplicate()
 	new_shape = CircleShape2D.new()
 	new_shape.radius = size_per_tier[size_tier] / 2
 
 func bubble_up() -> void:
 	bubbled = true
-	get_parent().Collider.shape = new_shape
+	get_parent().set_collider_shape(new_shape)
 	get_parent().body_entered.connect(bubble_used)
 	$Sprite2D.visible = true
 
@@ -32,5 +32,5 @@ func bubble_used(_body) -> void:
 	if bubble_lives <= 0:
 		bubbled = false
 		$Sprite2D.visible = false
-		get_parent().set_deferred("Collider.shape", orig_shape)
+		get_parent().call_deferred("set_collider_shape", orig_shape)
 		get_parent().body_entered.disconnect(bubble_used)
