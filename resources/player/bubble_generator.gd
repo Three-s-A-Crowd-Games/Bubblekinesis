@@ -7,9 +7,9 @@ class_name BubbleGenerator
 @export var base_line_thickness = 3
 @export var debug_draw := false
 
-var points: PackedVector2Array = []
+static var can_draw := true
 var is_drawing := false
-var can_draw := true
+var points: PackedVector2Array = []
 var debug_draw_poly: PackedVector2Array
 var debug_target_rect: Rect2
 var debug_query_rect: Rect2
