@@ -15,12 +15,11 @@ var tex_per_tier = [
 	"res://assets/sprites/bubble_l.png"
 ]
 
-func _ready() -> void:
-	$Sprite2D.texture = load(tex_per_tier[get_parent().size_tier])
-	
-	orig_shape = get_parent().Collider.shape
+func setup(size_tier :int, ori_shape :Shape2D) -> void:
+	$Sprite2D.texture = load(tex_per_tier[size_tier])
+	orig_shape = ori_shape
 	new_shape = CircleShape2D.new()
-	new_shape.radius = size_per_tier[get_parent().size_tier] / 2
+	new_shape.radius = size_per_tier[size_tier] / 2
 
 func bubble_up() -> void:
 	bubbled = true
@@ -33,5 +32,5 @@ func bubble_used(_body) -> void:
 	if bubble_lives <= 0:
 		bubbled = false
 		$Sprite2D.visible = false
-		get_parent().Collider.shape = orig_shape
-		get_parent().body_entered.disconnect()
+		get_parent().set_deferred("Collider.shape", orig_shape)
+		get_parent().body_entered.disconnect(bubble_used)
