@@ -30,7 +30,7 @@ shape = SubResource("RectangleShape2D_pwvis")
 [node name="Spobjects" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 texture = SubResource("ImageTexture_6tsv4")
 
 [connection signal="body_exited" from="PlayArea" to="." method="_on_play_area_body_exited"]
+[connection signal="body_exited" from="NextArea" to="." method="_on_next_area_body_exited"]
