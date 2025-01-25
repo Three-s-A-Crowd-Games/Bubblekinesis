@@ -30,6 +30,7 @@ const comets = [
 var chance_for_resource := 0.5
 var type
 var size_tier :int
+var worth :int
 
 func _ready() -> void:
 	type = Type.RESOURCE if randf() < chance_for_resource else Type.COMET
@@ -43,6 +44,7 @@ func _ready() -> void:
 		var key :String = resources.keys()[randi_range(0,resources.keys().size() - 1)]
 		size_tier = resources[key]
 		Sprite.texture = load(key)
+		worth = 1
 	elif type == Type.COMET:
 		var key :String = comets[randi_range(0,comets.size() - 1)]
 		Sprite.texture = load(key)

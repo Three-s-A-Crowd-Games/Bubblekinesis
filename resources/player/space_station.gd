@@ -16,3 +16,9 @@ func _input(event: InputEvent) -> void:
 func _process(delta :float) -> void:
 	if Net.rotation != target_rot:
 		Net.rotation = rotate_toward(Net.rotation, target_rot, net_rotation_speed)
+
+
+func _on_capture_area_body_entered(body: Node2D) -> void:
+	if body is Spobject and body.type == Spobject.Type.RESOURCE:
+		GameState.captured_resources += body.worth
+		body.queue_free()
