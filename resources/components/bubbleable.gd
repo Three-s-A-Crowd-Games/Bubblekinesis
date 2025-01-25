@@ -4,6 +4,8 @@ extends Node2D
 
 @export var bubble_lives :int = 1
 
+@onready var Animator = $AnimatedSprite2D
+
 var bubbled := false
 var orig_shape :Shape2D
 var new_shape :Shape2D
@@ -20,6 +22,16 @@ func setup(size_tier :int, ori_shape :Shape2D) -> void:
 	orig_shape = ori_shape.duplicate()
 	new_shape = CircleShape2D.new()
 	new_shape.radius = size_per_tier[size_tier] / 2
+	
+	match size_tier:
+		0:
+			Animator.animation = "s"
+		1:
+			Animator.animation = "m"
+		2:
+			Animator.animation = "l"
+		_:
+			Animator.animation = "l"
 
 func bubble_up() -> void:
 	bubbled = true
@@ -36,5 +48,6 @@ func bubble_used(body :Node2D) -> void:
 	if bubble_lives <= 0:
 		bubbled = false
 		$Sprite2D.visible = false
+		Animator.play()
 		get_parent().call_deferred("set_collider_shape", orig_shape)
 		get_parent().body_entered.disconnect(bubble_used)
