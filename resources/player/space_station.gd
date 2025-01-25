@@ -2,13 +2,17 @@ class_name SpaceStation
 
 extends StaticBody2D
 
-@onready var Sprite := $Sprite2D
+@export var net_rotation_speed :float = 0.05
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+@onready var Sprite := $StationSprite
 
+@onready var Net := $Net
+@onready var target_rot = $Net.rotation
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.is_action("rmb") or event is InputEventMouseMotion and Input.is_action_pressed("rmb"):
+		target_rot = self.global_position.angle_to_point(get_global_mouse_position()) + PI/2
+
+func _process(delta :float) -> void:
+	if Net.rotation != target_rot:
+		Net.rotation = rotate_toward(Net.rotation, target_rot, net_rotation_speed)

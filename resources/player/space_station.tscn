@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpjaqyvpqyeu5"]
+[gd_scene load_steps=5 format=3 uid="uid://dpjaqyvpqyeu5"]
 
-[ext_resource type="Texture2D" uid="uid://bbl6027dxslbw" path="res://assets/64testthing.png" id="1_c30je"]
 [ext_resource type="Script" path="res://resources/player/space_station.gd" id="1_dvh4a"]
+[ext_resource type="Texture2D" uid="uid://bf82t4xf3xmhw" path="res://assets/sprites/spacestation.png" id="2_sjkjt"]
+[ext_resource type="Texture2D" uid="uid://clj3dqq4mtaqs" path="res://assets/sprites/spacestation_net.png" id="3_hgenl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7jmfb"]
 radius = 32.0
@@ -9,8 +10,18 @@ radius = 32.0
 [node name="SpaceStation" type="StaticBody2D"]
 script = ExtResource("1_dvh4a")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_c30je")
+[node name="StationSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_sjkjt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_7jmfb")
+
+[node name="Net" type="Sprite2D" parent="."]
+texture = ExtResource("3_hgenl")
+
+[node name="CaptureArea" type="Area2D" parent="Net"]
+
+[node name="Polygon" type="CollisionPolygon2D" parent="Net/CaptureArea"]
+position = Vector2(0, -32)
+polygon = PackedVector2Array(0, 5, 11, 9, 19, 0, 0, -1, -19, 0, -13, 9)
