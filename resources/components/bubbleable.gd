@@ -28,7 +28,7 @@ func bubble_up() -> void:
 	get_parent().body_entered.connect(bubble_used)
 	$Sprite2D.visible = true
 
-func bubble_used() -> void:
+func bubble_used(_body) -> void:
 	bubble_lives -= 1
 	if bubble_lives <= 0:
 		bubbled = false
