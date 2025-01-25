@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://resources/player/player_cam.gd" id="1_ue0wb"]
 
 [node name="PlayerCam" type="Camera2D"]
-zoom = Vector2(7.5, 7.5)
+zoom = Vector2(6, 6)
 limit_smoothed = true
 position_smoothing_enabled = true
 script = ExtResource("1_ue0wb")

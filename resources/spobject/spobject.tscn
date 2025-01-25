@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c3rbmttulavuh"]
 
 [ext_resource type="Script" path="res://resources/spobject/spobject.gd" id="1_kf4dc"]
-[ext_resource type="Texture2D" uid="uid://u5y8aipoua6q" path="res://icon.svg" id="2_e10r2"]
+[ext_resource type="Texture2D" uid="uid://xhkwsp7a1nd6" path="res://assets/32x32testthing.png" id="2_vmkk7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dm3xq"]
 friction = 0.0
@@ -19,8 +19,7 @@ angular_damp_mode = 1
 script = ExtResource("1_kf4dc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.5)
-texture = ExtResource("2_e10r2")
+texture = ExtResource("2_vmkk7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_3x5de")
