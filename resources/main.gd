@@ -118,8 +118,12 @@ func radar_upgrade(size :Vector2) -> void:
 
 func _on_play_area_body_exited(body: Node2D) -> void:
 	if body is Spobject:
+		if body.bubbleable and body.bubbleable.bubbled:
+			GameState.cur_bubbles -= 1
 		body.queue_free()
 		
 func _on_next_area_body_exited(body: Node2D) -> void:
 	if body is Spobject:
+		if body.bubbleable and body.bubbleable.bubbled:
+			GameState.cur_bubbles -= 1
 		body.queue_free()
