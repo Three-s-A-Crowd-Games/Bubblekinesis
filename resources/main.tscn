@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bwmka1u2q5x34"]
+[gd_scene load_steps=16 format=3 uid="uid://bwmka1u2q5x34"]
 
 [ext_resource type="Script" path="res://resources/main.gd" id="1_1f5gh"]
 [ext_resource type="PackedScene" uid="uid://dpjaqyvpqyeu5" path="res://resources/player/space_station.tscn" id="1_s40s2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://resources/player/bubble_generator.gd" id="4_krwtq"]
 [ext_resource type="Shader" path="res://assets/shader/colorfilter.gdshader" id="5_80r3p"]
 [ext_resource type="PackedScene" uid="uid://drgi0nu2a0a1b" path="res://resources/UI/HUD.tscn" id="6_yrvyg"]
+[ext_resource type="PackedScene" uid="uid://cqmgdiarb2dpu" path="res://resources/UI/pause_menu.tscn" id="7_va6v6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpokk"]
 
@@ -109,6 +110,9 @@ script = ExtResource("4_krwtq")
 
 [node name="Hud" parent="UI" instance=ExtResource("6_yrvyg")]
 mouse_filter = 2
+
+[node name="PauseMenu" parent="UI" instance=ExtResource("7_va6v6")]
+visible = false
 
 [connection signal="body_exited" from="SubViewportContainer/SubViewport/Main/PlayArea" to="SubViewportContainer/SubViewport/Main" method="_on_play_area_body_exited"]
 [connection signal="body_exited" from="SubViewportContainer/SubViewport/Main/NextArea" to="SubViewportContainer/SubViewport/Main" method="_on_next_area_body_exited"]
