@@ -60,7 +60,6 @@ func bubble_up() -> void:
 # returns true if bubble died
 func damage_bubble(amount :int) -> bool:
 	bubble_lives -= amount
-	print(bubble_lives)
 	if bubble_lives <= 0:
 		pop_sfx_player.play()
 		float_sfx_player.stop()
