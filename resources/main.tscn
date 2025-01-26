@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://bwmka1u2q5x34"]
+[gd_scene load_steps=20 format=3 uid="uid://bwmka1u2q5x34"]
 
 [ext_resource type="Script" path="res://resources/main.gd" id="1_1f5gh"]
+[ext_resource type="Script" path="res://resources/sub_viewport.gd" id="1_2gnr2"]
 [ext_resource type="PackedScene" uid="uid://dpjaqyvpqyeu5" path="res://resources/player/space_station.tscn" id="1_s40s2"]
 [ext_resource type="PackedScene" uid="uid://hnrje23lpbgf" path="res://resources/player/player_cam.tscn" id="2_5o1tk"]
 [ext_resource type="Script" path="res://resources/player/bubble_generator.gd" id="4_krwtq"]
@@ -60,6 +61,7 @@ audio_listener_enable_2d = true
 physics_object_picking = true
 size = Vector2i(426, 240)
 render_target_update_mode = 4
+script = ExtResource("1_2gnr2")
 
 [node name="Main" type="Node2D" parent="SubViewportContainer/SubViewport"]
 script = ExtResource("1_1f5gh")
