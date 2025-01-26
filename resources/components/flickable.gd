@@ -80,7 +80,7 @@ func release_input() -> bool:
 	
 	if min_distance_reached:
 		var dir := line.to_global(line.points[1]) - body.global_position
-		body.apply_central_impulse(dir * impuls_strength)
+		body.apply_central_impulse(dir * impuls_strength * body.mass)
 		hide()
 		return true
 	return false

@@ -19,13 +19,13 @@ const resources = {
 	"res://assets/sprites/spobjects/bubbleable/sputnik.png": 2,
 }
 
-const comets = [
-	"res://assets/sprites/spobjects/non_bubbleable/comet_1.png",
-	"res://assets/sprites/spobjects/non_bubbleable/comet_2.png",
-	"res://assets/sprites/spobjects/non_bubbleable/comet_3.png",
-	"res://assets/sprites/spobjects/non_bubbleable/comet_4.png",
-	"res://assets/sprites/spobjects/non_bubbleable/comet_5.png",
-]
+const comets = {
+	"res://assets/sprites/spobjects/non_bubbleable/comet_1.png": 100,
+	"res://assets/sprites/spobjects/non_bubbleable/comet_2.png": 10,
+	"res://assets/sprites/spobjects/non_bubbleable/comet_3.png": 10,
+	"res://assets/sprites/spobjects/non_bubbleable/comet_4.png": 100,
+	"res://assets/sprites/spobjects/non_bubbleable/comet_5.png": 1000,
+}
 
 var chance_for_resource := 0.5
 var type
@@ -48,7 +48,8 @@ func _ready() -> void:
 		Sprite.texture = load(key)
 		worth = 1
 	elif type == Type.COMET:
-		var key :String = comets[randi_range(0,comets.size() - 1)]
+		var key :String = comets.keys()[randi_range(0,comets.size() - 1)]
+		mass = comets[key]
 		Sprite.texture = load(key)
 	else:
 		Sprite.texture =  load("res://assets/32x32testthing.png")

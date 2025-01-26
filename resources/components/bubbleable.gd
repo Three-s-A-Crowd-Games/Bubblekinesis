@@ -38,6 +38,7 @@ func setup(size_tier :int, ori_shape :Shape2D) -> void:
 func bubble_up() -> void:
 	if not get_parent().captured:
 		bubbled = true
+		get_parent().mass = 0.001
 		get_parent().set_collider_shape(new_shape)
 		get_parent().body_entered.connect(bubble_bumped)
 		$Sprite2D.visible = true
@@ -48,17 +49,20 @@ func bubble_up() -> void:
 		add_child(popable)
 		get_parent().check_input.append(popable)
 
-func damage_bubble(amount :int) -> void:
+# returns true if bubble died
+func damage_bubble(amount :int) -> bool:
 	bubble_lives -= amount
 	if bubble_lives <= 0:
 		bubbled = false
 		$Sprite2D.visible = false
 		Animator.play()
+		get_parent().mass = 1
 		get_parent().call_deferred("set_collider_shape", orig_shape)
 		get_parent().body_entered.disconnect(bubble_bumped)
 		get_parent().check_input.erase(flickable)
 		get_parent().check_input.erase(popable)
-	
+		return true
+	return false
 
 func bubble_bumped(body :Node2D) -> void:
 	if get_parent().captured:
@@ -67,4 +71,6 @@ func bubble_bumped(body :Node2D) -> void:
 		var other_bubbleable = body.find_children("*", "Bubbleable", false, false)
 		if other_bubbleable.size() == 1 and other_bubbleable[0].bubbled:
 			return
-	damage_bubble(1)
+	if damage_bubble(1):
+		get_parent().linear_velocity = Vector2.ZERO
+		
