@@ -26,6 +26,8 @@ func _ready() -> void:
 	GameState.upgraded_max_bubbles.connect(update_bubbles)
 	GameState.upgraded_radar_level.connect(update_radar)
 	
+	GameState.resources_changed.connect(check_funds)
+	
 	update_cost(net_cost,0)
 	update_cost(bubble_cost,0)
 	update_cost(radar_cost,0)
@@ -34,15 +36,16 @@ func _ready() -> void:
 	bubble_button.pressed.connect(GameState.upgrade_bubbles)
 	radar_button.pressed.connect(GameState.upgrade_radar)
 
-func update_cost(lab :Label, level :int):
-	if level < 3:
+func update_cost(lab :Label, level :int, done :bool = false):
+	if not done:
 		var cost = GameState.base_upgrade_cost * (level+1)
 		lab.text = str(cost) if cost >= 10 else "0"+str(cost)
 	else:
 		lab.text = "XX"
 
 func update_net(level :int) -> void:
-	update_cost(net_cost, level)
+	var max_level :bool = level == GameState.max_net_level
+	update_cost(net_cost, level, max_level)
 	if level >= 1:
 		net_1.texture = image_full
 	else:
@@ -56,8 +59,14 @@ func update_net(level :int) -> void:
 	else:
 		net_3.texture = image_empty
 	
+	if max_level and not net_button.disabled:
+		net_button.disabled = true
+	elif not max_level and net_button.disabled:
+		net_button.disabled = false
+	
 func update_bubbles(level :int) -> void:
-	update_cost(bubble_cost, level)
+	var max_level :bool = level == GameState.max_net_level
+	update_cost(bubble_cost, level, max_level)
 	if level >= 1:
 		bubble_1.texture = image_full
 	else:
@@ -71,8 +80,14 @@ func update_bubbles(level :int) -> void:
 	else:
 		bubble_3.texture = image_empty
 	
+	if max_level and not bubble_button.disabled:
+		bubble_button.disabled = true
+	elif not max_level and bubble_button.disabled:
+		bubble_button.disabled = false
+	
 func update_radar(level :int) -> void:
-	update_cost(radar_cost, level)
+	var max_level :bool = level == GameState.max_net_level
+	update_cost(radar_cost, level, max_level)
 	if level >= 1:
 		radar_1.texture = image_full
 	else:
@@ -85,3 +100,30 @@ func update_radar(level :int) -> void:
 		radar_3.texture = image_full
 	else:
 		radar_3.texture = image_empty
+	
+	if max_level and not radar_button.disabled:
+		radar_button.disabled = true
+	elif not max_level and radar_button.disabled:
+		radar_button.disabled = false
+
+func check_funds(new_amount :int, type :GameState.ResourceType) -> void:
+	var cost
+	var button
+	match (type):
+		GameState.ResourceType.RED:
+			if GameState.cur_net_level >= GameState.max_net_level: return
+			cost = GameState.base_upgrade_cost * (GameState.cur_net_level + 1)
+			button = net_button
+		GameState.ResourceType.BLUE:
+			if GameState.cur_max_bubbles_level >= GameState.max_bubble_level: return
+			cost = GameState.base_upgrade_cost * (GameState.cur_max_bubbles_level + 1)
+			button = bubble_button
+		GameState.ResourceType.SILVER:
+			if GameState.cur_play_area_upgrade >= GameState.max_radar_level: return
+			cost = GameState.base_upgrade_cost * (GameState.cur_play_area_upgrade + 1)
+			button = radar_button
+			
+	if GameState.captured_resources[type] >= cost and button.disabled:
+		button.disabled = false
+	elif GameState.captured_resources[type] < cost and not button.disabled:
+		button.disabled = true

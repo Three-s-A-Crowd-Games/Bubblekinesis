@@ -206,6 +206,7 @@ theme_override_font_sizes/font_size = 10
 theme_override_styles/disabled = SubResource("StyleBoxFlat_p8mop")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jy7kf")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fita0")
+disabled = true
 text = "BUY"
 
 [node name="item_2" type="MarginContainer" parent="right/shop_container"]
@@ -280,6 +281,7 @@ theme_override_font_sizes/font_size = 10
 theme_override_styles/disabled = SubResource("StyleBoxFlat_p8mop")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jy7kf")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fita0")
+disabled = true
 text = "BUY"
 
 [node name="item_3" type="MarginContainer" parent="right/shop_container"]
@@ -354,4 +356,5 @@ theme_override_font_sizes/font_size = 10
 theme_override_styles/disabled = SubResource("StyleBoxFlat_p8mop")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jy7kf")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fita0")
+disabled = true
 text = "BUY"

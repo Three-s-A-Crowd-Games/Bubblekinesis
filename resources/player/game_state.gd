@@ -38,12 +38,15 @@ var max_bubbles_per_level = [2, 3 , 4, 5]
 @onready var max_bubbles :int = max_bubbles_per_level[0]
 
 var captured_resources = {
-	ResourceType.SILVER: 100,
-	ResourceType.BLUE: 100,
-	ResourceType.RED: 100,
+	ResourceType.SILVER: 4,
+	ResourceType.BLUE: 4,
+	ResourceType.RED: 4,
 }
 
 var base_upgrade_cost = 5
+var max_net_level = 3
+var max_bubble_level = 3
+var max_radar_level = 3
 
 signal resources_changed(new_amount :int, type :ResourceType)
 signal upgraded_play_area(play_area :Vector2)
