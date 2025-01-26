@@ -1,7 +1,7 @@
 extends Node2D
 class_name Flickable
 
-@export var impuls_strength := 5.0
+@export var impuls_strength := 1.0
 @export_group("Arrow", "arrow")
 @export var arrow_max_drag_distance := 20
 @export var arrow_color_gradient: Gradient = preload("res://resources/components/flickable_arrow_gradient.tres")
@@ -18,8 +18,6 @@ var dragging := false
 var line := Line2D.new()
 var arrow_head := Sprite2D.new()
 var body: RigidBody2D
-
-var arrow_dir: Vector2
 
 func _init(spobj: RigidBody2D):
 	body = spobj
@@ -61,8 +59,6 @@ func _process(delta):
 	arrow_head.scale = Vector2.ONE * lerpf(arrow_head_min_scale, arrow_head_max_scale, distance_ratio)
 	arrow_head.modulate = color
 	
-	arrow_dir = -t_pos.normalized()
-	
 
 func _on_spobject_input_event(viewport, event, shape_idx):
 	event = event as InputEventMouseButton
@@ -76,6 +72,7 @@ func _unhandled_input(event):
 		BubbleGenerator.can_draw = true
 		dragging = false
 		
-		body.apply_central_impulse(arrow_dir * impuls_strength)
+		var dir := line.to_global(line.points[1]) - body.global_position
+		body.apply_central_impulse(dir * impuls_strength)
 		hide()
 	

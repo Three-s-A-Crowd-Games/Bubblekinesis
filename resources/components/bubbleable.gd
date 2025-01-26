@@ -39,6 +39,8 @@ func bubble_up() -> void:
 		get_parent().set_collider_shape(new_shape)
 		get_parent().body_entered.connect(bubble_used)
 		$Sprite2D.visible = true
+		var flickable = Flickable.new(get_parent())
+		add_child(flickable)
 
 func bubble_used(body :Node2D) -> void:
 	if get_parent().captured:
