@@ -80,6 +80,7 @@ func cancel() -> void:
 
 func release_input(already_handled :bool) -> bool:
 	if already_handled: return false
+	if not dragging: return false
 	dragging = false
 	
 	if min_distance_reached:
