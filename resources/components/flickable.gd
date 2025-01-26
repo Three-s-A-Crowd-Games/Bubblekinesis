@@ -74,6 +74,10 @@ func input() -> void:
 	init_pos = line.get_local_mouse_position()
 	dragging = true
 
+func cancel() -> void:
+	dragging = false
+	hide()
+
 func release_input(already_handled :bool) -> bool:
 	if already_handled: return false
 	dragging = false

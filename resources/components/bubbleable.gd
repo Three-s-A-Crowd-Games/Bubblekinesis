@@ -64,6 +64,7 @@ func damage_bubble(amount :int) -> bool:
 		get_parent().body_entered.disconnect(bubble_bumped)
 		get_parent().check_input.erase(flickable)
 		get_parent().check_input.erase(popable)
+		flickable.cancel()
 		return true
 	return false
 
