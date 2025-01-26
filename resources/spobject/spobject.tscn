@@ -14,7 +14,7 @@ resource_local_to_scene = true
 physics_material_override = SubResource("PhysicsMaterial_dm3xq")
 gravity_scale = 0.0
 contact_monitor = true
-max_contacts_reported = 1
+max_contacts_reported = 10
 linear_damp_mode = 1
 angular_damp_mode = 1
 script = ExtResource("1_kf4dc")
@@ -24,3 +24,5 @@ texture = ExtResource("2_5r2js")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_3x5de")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

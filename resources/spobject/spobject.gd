@@ -32,6 +32,7 @@ var type
 var size_tier :int
 var worth :int
 var captured := false
+var check_input = []
 
 func _ready() -> void:
 	type = Type.RESOURCE if randf() < chance_for_resource else Type.COMET
@@ -65,3 +66,18 @@ func _physics_process(delta: float) -> void:
 
 func set_collider_shape(shape :Shape2D) -> void:
 	Collider.shape = shape
+
+
+func _on_input_event(viewport, event, shape_idx):
+	event = event as InputEventMouseButton
+	if event and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		BubbleGenerator.can_draw = false
+		for inputable in check_input:
+			inputable.input()
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+		BubbleGenerator.can_draw = true
+		for inputable in check_input:
+			if inputable.release_input():
+				return

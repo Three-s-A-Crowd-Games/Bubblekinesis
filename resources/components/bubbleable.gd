@@ -9,6 +9,8 @@ extends Node2D
 var bubbled := false
 var orig_shape :Shape2D
 var new_shape :Shape2D
+var flickable :Flickable
+var popable :Popable
 
 var size_per_tier = [8, 20, 36]
 var tex_per_tier = [
@@ -37,22 +39,32 @@ func bubble_up() -> void:
 	if not get_parent().captured:
 		bubbled = true
 		get_parent().set_collider_shape(new_shape)
-		get_parent().body_entered.connect(bubble_used)
+		get_parent().body_entered.connect(bubble_bumped)
 		$Sprite2D.visible = true
-		var flickable = Flickable.new(get_parent())
+		flickable = Flickable.new(get_parent())
 		add_child(flickable)
+		get_parent().check_input.append(flickable)
+		popable = Popable.new(self)
+		add_child(popable)
+		get_parent().check_input.append(popable)
 
-func bubble_used(body :Node2D) -> void:
+func damage_bubble(amount :int) -> void:
+	bubble_lives -= amount
+	if bubble_lives <= 0:
+		bubbled = false
+		$Sprite2D.visible = false
+		Animator.play()
+		get_parent().call_deferred("set_collider_shape", orig_shape)
+		get_parent().body_entered.disconnect(bubble_bumped)
+		get_parent().check_input.erase(flickable)
+		get_parent().check_input.erase(popable)
+	
+
+func bubble_bumped(body :Node2D) -> void:
 	if get_parent().captured:
 		return
 	if body is Spobject:
 		var other_bubbleable = body.find_children("*", "Bubbleable", false, false)
 		if other_bubbleable.size() == 1 and other_bubbleable[0].bubbled:
 			return
-	bubble_lives -= 1
-	if bubble_lives <= 0:
-		bubbled = false
-		$Sprite2D.visible = false
-		Animator.play()
-		get_parent().call_deferred("set_collider_shape", orig_shape)
-		get_parent().body_entered.disconnect(bubble_used)
+	damage_bubble(1)
