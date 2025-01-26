@@ -7,7 +7,7 @@ extends StaticBody2D
 @onready var cur_net_rotation_speed = net_rotation_speeds[0]
 
 @onready var Sprite := $StationSprite
-
+@onready var pickup_sfx_player := $Pickup
 @onready var Net := $Net
 @onready var target_rot = $Net.rotation
 
@@ -24,6 +24,7 @@ func _process(delta :float) -> void:
 
 func _on_capture_area_body_entered(body: Node2D) -> void:
 	if body is Spobject and body.type == Spobject.Type.RESOURCE:
+		pickup_sfx_player.play()
 		body.captured = true
 		GameState.change_resources(body.worth, body.resource_type)
 		if body.bubbleable.bubbled:

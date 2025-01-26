@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3rbmttulavuh"]
+[gd_scene load_steps=6 format=3 uid="uid://c3rbmttulavuh"]
 
 [ext_resource type="Script" path="res://resources/spobject/spobject.gd" id="1_kf4dc"]
 [ext_resource type="Texture2D" uid="uid://eeahy4ax26vh" path="res://assets/sprites/spobjects/bubbleable/solar_panel_1.png" id="2_5r2js"]
+[ext_resource type="AudioStream" uid="uid://dupg74w72ipe7" path="res://assets/sound/sfx/collide-rock.mp3" id="3_q770x"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dm3xq"]
 friction = 0.0
@@ -26,4 +27,13 @@ texture = ExtResource("2_5r2js")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_3x5de")
 
+[node name="Collide" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_q770x")
+volume_db = -20.0
+pitch_scale = 0.7
+max_distance = 200.0
+attenuation = 2.21914
+bus = &"SFX"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]

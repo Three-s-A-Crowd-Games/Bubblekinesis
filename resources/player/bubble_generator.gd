@@ -1,6 +1,8 @@
 extends Node2D
 class_name BubbleGenerator
 
+signal bubbleup_canceled
+
 @export var generation_area_threshold = 0.85
 @export var auto_close_gap_distance = 30
 @export var min_draw_step_size = 2
@@ -15,6 +17,7 @@ var debug_target_rect: Rect2
 var debug_query_rect: Rect2
 
 @onready var cam: Camera2D = $"../PlayerCam"
+@onready var draw_sfx_player: AudioStreamPlayer = $Draw
 
 func _physics_process(_delta) -> void:
 	if debug_draw and Input.is_action_just_pressed("ui_cancel"):
@@ -26,6 +29,7 @@ func _physics_process(_delta) -> void:
 	if is_drawing or points.size() == 0: return
 	
 	if GameState.cur_bubbles >= GameState.max_bubbles:
+		bubbleup_canceled.emit()
 		points.clear()
 		queue_redraw()
 		prints("No bubble, because max amount of bubbles reached")
@@ -96,7 +100,8 @@ func _physics_process(_delta) -> void:
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and event.button_mask == MOUSE_BUTTON_MASK_LEFT:
 		if not can_draw: return
-		
+		if not draw_sfx_player.playing: draw_sfx_player.play()
+		 
 		var new_pos := mouse_to_screen_pos(event.position)
 		
 		if points.size() > 0:
@@ -107,6 +112,7 @@ func _unhandled_input(event):
 		for i in range(0, points.size()-2):
 			var intersection = Geometry2D.segment_intersects_segment(points[i], points[i+1], new_pos, points[-1])
 			if intersection is Vector2:
+				draw_sfx_player.stop()
 				is_drawing = false
 				can_draw = false
 				points.append(intersection)
@@ -121,6 +127,7 @@ func _unhandled_input(event):
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT: 
 		is_drawing = event.pressed
 		if not is_drawing:
+			draw_sfx_player.stop()
 			can_draw = true
 			debug_draw_poly = points.duplicate()
 			

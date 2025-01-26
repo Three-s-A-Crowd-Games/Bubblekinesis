@@ -4,6 +4,7 @@ extends RigidBody2D
 
 @onready var Collider := $CollisionShape2D
 @onready var Sprite := $Sprite2D
+@onready var collide_sfx_player: AudioStreamPlayer2D = $Collide
 
 enum Type {
 	RESOURCE,
@@ -88,3 +89,8 @@ func _unhandled_input(event):
 		for inputable in check_input:
 			if inputable.release_input(already_handled):
 				already_handled = true
+
+
+func _on_body_entered(body):
+	if not bubbleable or not bubbleable.bubbled:
+		collide_sfx_player.play()

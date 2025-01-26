@@ -1,9 +1,18 @@
-[gd_scene load_steps=18 format=3 uid="uid://bqksi7orosioc"]
+[gd_scene load_steps=29 format=3 uid="uid://bqksi7orosioc"]
 
 [ext_resource type="Script" path="res://resources/components/bubbleable.gd" id="1_761y0"]
 [ext_resource type="Texture2D" uid="uid://dnujy0qb8s4jd" path="res://assets/sprites/bubbles/animations/bubble_l/bubble_l_popanimation_58x4.png" id="2_d8p2k"]
 [ext_resource type="Texture2D" uid="uid://d0kiqh3y64n1o" path="res://assets/sprites/bubbles/animations/bubble_m/bubble_m_popanimation_30x4.png" id="3_6x4qq"]
 [ext_resource type="Texture2D" uid="uid://l2c0qcn82k3j" path="res://assets/sprites/bubbles/animations/bubble_s/bubble_s_popanimation_18x4.png" id="4_4skp0"]
+[ext_resource type="AudioStream" uid="uid://kq78m0wh5wh8" path="res://assets/sound/sfx/collide-bubble.mp3" id="5_lpj4i"]
+[ext_resource type="AudioStream" uid="uid://bk8ppdvu5tei7" path="res://assets/sound/sfx/bubble_pop-1.mp3" id="6_be84w"]
+[ext_resource type="AudioStream" uid="uid://bq6opwhijxlk2" path="res://assets/sound/sfx/bubble_pop-2.mp3" id="7_balfo"]
+[ext_resource type="AudioStream" uid="uid://0p44y240jiep" path="res://assets/sound/sfx/bubble_pop-3.mp3" id="8_cf48c"]
+[ext_resource type="AudioStream" uid="uid://djpt6tw01uyah" path="res://assets/sound/sfx/bubble_pop-4.mp3" id="9_himxa"]
+[ext_resource type="AudioStream" uid="uid://dfhcmxhinr6cd" path="res://assets/sound/sfx/bubble_pop-5.mp3" id="10_54p8t"]
+[ext_resource type="AudioStream" uid="uid://c3guv7rwcqv8v" path="res://assets/sound/sfx/bubble_float-1.mp3" id="11_u74pc"]
+[ext_resource type="AudioStream" uid="uid://cwatt2uoohvnk" path="res://assets/sound/sfx/bubble_float-2.mp3" id="12_nm1av"]
+[ext_resource type="AudioStream" uid="uid://bgmw570uuof82" path="res://assets/sound/sfx/bubbleup.mp3" id="13_bup7h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_agjc2"]
 atlas = ExtResource("2_d8p2k")
@@ -116,6 +125,22 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_aml4p"]
+streams_count = 5
+stream_0/stream = ExtResource("6_be84w")
+stream_1/stream = ExtResource("7_balfo")
+stream_2/stream = ExtResource("8_cf48c")
+stream_3/stream = ExtResource("9_himxa")
+stream_4/stream = ExtResource("10_54p8t")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_e22wf"]
+playback_mode = 1
+random_pitch = 1.5
+random_volume_offset_db = 4.0
+streams_count = 2
+stream_0/stream = ExtResource("11_u74pc")
+stream_1/stream = ExtResource("12_nm1av")
+
 [node name="Bubbleable" type="Node2D"]
 script = ExtResource("1_761y0")
 
@@ -130,3 +155,33 @@ animation = &"m"
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
 remote_path = NodePath("../AnimatedSprite2D")
 update_rotation = false
+
+[node name="Collide" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_lpj4i")
+volume_db = -20.0
+max_distance = 500.0
+bus = &"SpaceSFX"
+
+[node name="Pop" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_aml4p")
+volume_db = -12.0
+max_distance = 500.0
+attenuation = 0.450625
+bus = &"SpaceSFX"
+
+[node name="Float" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_e22wf")
+volume_db = -12.0
+max_distance = 500.0
+attenuation = 2.14355
+bus = &"SpaceSFX"
+
+[node name="Bubbleup" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_bup7h")
+volume_db = -20.0
+max_distance = 400.0
+bus = &"SpaceSFX"
+
+[node name="FloatTrigger" type="Timer" parent="."]
+
+[connection signal="timeout" from="FloatTrigger" to="." method="_on_float_trigger_timeout"]
