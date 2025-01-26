@@ -90,7 +90,7 @@ func spawn_new_spobj(x :int, y :int, cur_area :bool = false) -> void:
 				$Spobjects.add_child(newspobj)
 				var rect = newspobj.Sprite.get_rect()
 				rect.position = newspobj.global_position - rect.size/2
-				if rect.intersects($SpaceStation.Sprite.get_rect()):
+				if rect.intersects($SpaceStation/Net.get_rect()):
 					newspobj.queue_free()
 
 func spawn_new_spobjects() -> void:
