@@ -3,6 +3,8 @@ extends Node2D
 @onready var Play_Area_Coll := $PlayArea/CollisionShape2D
 @onready var Next_Area_Coll := $NextArea/CollisionShape2D
 
+@onready var Fog_Noise :FastNoiseLite = $Fog.material.get_shader_parameter("NOISE_TEX").noise
+
 var noisy = FastNoiseLite.new()
 var star_noise = FastNoiseLite.new()
 var bg_size = 2058
@@ -42,10 +44,18 @@ func _ready() -> void:
 	star_tex.set_image(Image.create_from_data(bg_size,bg_size, false, Image.FORMAT_L8, star_array))
 	$Parallax2D/Sprite2D.texture = star_tex
 	
-	init_spawns()
+	Fog_Noise.fractal_type = FastNoiseLite.FRACTAL_FBM
+	Fog_Noise.frequency = 0.025
+	Fog_Noise.fractal_gain = 0.15
+	Fog_Noise.fractal_lacunarity = 2
+	Fog_Noise.fractal_octaves = 6
 	
+	init_spawns()
 
 func _process(delta :float) -> void:
+	Fog_Noise.offset.x += delta
+	Fog_Noise.offset.y += delta * 1.5
+	Fog_Noise.offset.z += delta * 3
 	time_to_next_spawn -= delta
 	if time_to_next_spawn <= 0:
 		spawn_new_spobjects()
