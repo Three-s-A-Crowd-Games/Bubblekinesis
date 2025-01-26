@@ -1,0 +1,137 @@
+[gd_scene load_steps=5 format=3 uid="uid://drgi0nu2a0a1b"]
+
+[ext_resource type="Texture2D" uid="uid://dy5bsp2opdeqf" path="res://assets/sprites/UI/red_icon.png" id="1_utx03"]
+[ext_resource type="Texture2D" uid="uid://isp6gl3heem1" path="res://assets/sprites/UI/blue_icon.png" id="2_bvwuu"]
+[ext_resource type="Texture2D" uid="uid://d0k3kejn4egf6" path="res://assets/sprites/UI/silver_icon.png" id="3_wyuau"]
+[ext_resource type="Texture2D" uid="uid://camb461vak4b1" path="res://assets/sprites/UI/bubble_s.png" id="4_qe2vp"]
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="left" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="left" type="VBoxContainer" parent="left"]
+layout_mode = 2
+
+[node name="ressource_container" type="MarginContainer" parent="left/left"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="background" type="ColorRect" parent="left/left/ressource_container"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.470588)
+
+[node name="ressources" type="VBoxContainer" parent="left/left/ressource_container"]
+layout_mode = 2
+
+[node name="red_container" type="MarginContainer" parent="left/left/ressource_container/ressources"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="red_box" type="HBoxContainer" parent="left/left/ressource_container/ressources/red_container"]
+layout_mode = 2
+
+[node name="icon" type="TextureRect" parent="left/left/ressource_container/ressources/red_container/red_box"]
+layout_mode = 2
+texture = ExtResource("1_utx03")
+expand_mode = 2
+
+[node name="amount" type="Label" parent="left/left/ressource_container/ressources/red_container/red_box"]
+layout_mode = 2
+text = "xx"
+
+[node name="blue_container" type="MarginContainer" parent="left/left/ressource_container/ressources"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="blue_box" type="HBoxContainer" parent="left/left/ressource_container/ressources/blue_container"]
+layout_mode = 2
+
+[node name="icon" type="TextureRect" parent="left/left/ressource_container/ressources/blue_container/blue_box"]
+layout_mode = 2
+texture = ExtResource("2_bvwuu")
+expand_mode = 2
+
+[node name="amount" type="Label" parent="left/left/ressource_container/ressources/blue_container/blue_box"]
+layout_mode = 2
+text = "xx"
+
+[node name="silver_container" type="MarginContainer" parent="left/left/ressource_container/ressources"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="silver_box" type="HBoxContainer" parent="left/left/ressource_container/ressources/silver_container"]
+layout_mode = 2
+
+[node name="icon" type="TextureRect" parent="left/left/ressource_container/ressources/silver_container/silver_box"]
+layout_mode = 2
+texture = ExtResource("3_wyuau")
+expand_mode = 2
+
+[node name="amount" type="Label" parent="left/left/ressource_container/ressources/silver_container/silver_box"]
+layout_mode = 2
+text = "xx"
+
+[node name="bubble_container" type="HBoxContainer" parent="left/left"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="bubble_1" type="TextureRect" parent="left/left/bubble_container"]
+layout_mode = 2
+texture = ExtResource("4_qe2vp")
+expand_mode = 2
+
+[node name="bubble_2" type="TextureRect" parent="left/left/bubble_container"]
+layout_mode = 2
+texture = ExtResource("4_qe2vp")
+expand_mode = 2
+
+[node name="right" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="right"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="right/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="right/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="right/HBoxContainer/VBoxContainer"]
+layout_mode = 2

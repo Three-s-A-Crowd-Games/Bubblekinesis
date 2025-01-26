@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://bwmka1u2q5x34"]
+[gd_scene load_steps=15 format=3 uid="uid://bwmka1u2q5x34"]
 
 [ext_resource type="Script" path="res://resources/main.gd" id="1_1f5gh"]
 [ext_resource type="PackedScene" uid="uid://dpjaqyvpqyeu5" path="res://resources/player/space_station.tscn" id="1_s40s2"]
 [ext_resource type="PackedScene" uid="uid://hnrje23lpbgf" path="res://resources/player/player_cam.tscn" id="2_5o1tk"]
 [ext_resource type="Script" path="res://resources/player/bubble_generator.gd" id="4_krwtq"]
 [ext_resource type="Shader" path="res://assets/shader/colorfilter.gdshader" id="5_80r3p"]
+[ext_resource type="PackedScene" uid="uid://drgi0nu2a0a1b" path="res://resources/UI/HUD.tscn" id="6_yrvyg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpokk"]
 
@@ -85,6 +86,10 @@ mouse_filter = 2
 [node name="BubbleGenerator" type="Node2D" parent="."]
 z_index = 200
 script = ExtResource("4_krwtq")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Hud" parent="UI" instance=ExtResource("6_yrvyg")]
 
 [connection signal="body_exited" from="PlayArea" to="." method="_on_play_area_body_exited"]
 [connection signal="body_exited" from="NextArea" to="." method="_on_next_area_body_exited"]
