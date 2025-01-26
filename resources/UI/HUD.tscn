@@ -1,9 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://drgi0nu2a0a1b"]
+[gd_scene load_steps=9 format=3 uid="uid://drgi0nu2a0a1b"]
 
 [ext_resource type="Texture2D" uid="uid://dy5bsp2opdeqf" path="res://assets/sprites/UI/red_icon.png" id="1_utx03"]
 [ext_resource type="Texture2D" uid="uid://isp6gl3heem1" path="res://assets/sprites/UI/blue_icon.png" id="2_bvwuu"]
 [ext_resource type="Texture2D" uid="uid://d0k3kejn4egf6" path="res://assets/sprites/UI/silver_icon.png" id="3_wyuau"]
 [ext_resource type="Texture2D" uid="uid://camb461vak4b1" path="res://assets/sprites/UI/bubble_s.png" id="4_qe2vp"]
+[ext_resource type="Texture2D" uid="uid://c2t7oebfug13y" path="res://assets/sprites/UI/upgrade_amount_empty.png" id="5_gyvah"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p8mop"]
+bg_color = Color(0.351563, 0.351563, 0.351563, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jy7kf"]
+bg_color = Color(0.6, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fita0"]
+bg_color = Color(0.358988, 2.88785e-07, 1.44392e-07, 1)
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -19,8 +29,8 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
+offset_top = -90.0
+offset_right = 41.0
 grow_vertical = 0
 
 [node name="left" type="VBoxContainer" parent="left"]
@@ -118,20 +128,234 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -20.0
-offset_bottom = 20.0
+offset_left = -128.0
+offset_top = -37.0
+offset_bottom = 37.0
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_constants/margin_right = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="right"]
+[node name="shop_container" type="VBoxContainer" parent="right"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="right/HBoxContainer"]
+[node name="item_1" type="MarginContainer" parent="right/shop_container"]
+layout_mode = 2
+tooltip_text = "Makes your net move faster."
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="background" type="ColorRect" parent="right/shop_container/item_1"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.470588)
+
+[node name="item" type="VBoxContainer" parent="right/shop_container/item_1"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="right/HBoxContainer/VBoxContainer"]
+[node name="info" type="HBoxContainer" parent="right/shop_container/item_1/item"]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="right/HBoxContainer/VBoxContainer"]
+[node name="icon" type="TextureRect" parent="right/shop_container/item_1/item/info"]
 layout_mode = 2
+texture = ExtResource("1_utx03")
+expand_mode = 2
+
+[node name="text" type="VBoxContainer" parent="right/shop_container/item_1/item/info"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="right/shop_container/item_1/item/info/text"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Net-Upgrade"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="right/shop_container/item_1/item/info/text"]
+layout_mode = 2
+
+[node name="cost_label" type="Label" parent="right/shop_container/item_1/item/info/text/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Cost: "
+
+[node name="cost_amount" type="Label" parent="right/shop_container/item_1/item/info/text/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "xx"
+
+[node name="upgrades" type="MarginContainer" parent="right/shop_container/item_1/item"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+
+[node name="upgrade_amounts" type="HBoxContainer" parent="right/shop_container/item_1/item/upgrades"]
+layout_mode = 2
+
+[node name="upgrade_1" type="TextureRect" parent="right/shop_container/item_1/item/upgrades/upgrade_amounts"]
+layout_mode = 2
+texture = ExtResource("5_gyvah")
+expand_mode = 2
+
+[node name="upgrade_2" type="TextureRect" parent="right/shop_container/item_1/item/upgrades/upgrade_amounts"]
+layout_mode = 2
+texture = ExtResource("5_gyvah")
+expand_mode = 2
+
+[node name="upgrade_3" type="TextureRect" parent="right/shop_container/item_1/item/upgrades/upgrade_amounts"]
+layout_mode = 2
+texture = ExtResource("5_gyvah")
+expand_mode = 2
+
+[node name="Button" type="Button" parent="right/shop_container/item_1/item/upgrades/upgrade_amounts"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+theme_override_styles/disabled = SubResource("StyleBoxFlat_p8mop")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jy7kf")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fita0")
+text = "BUY"
+
+[node name="item_2" type="MarginContainer" parent="right/shop_container"]
+layout_mode = 2
+tooltip_text = "Makes you able to shoot more bubbles."
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="background" type="ColorRect" parent="right/shop_container/item_2"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.470588)
+
+[node name="item" type="VBoxContainer" parent="right/shop_container/item_2"]
+layout_mode = 2
+
+[node name="info" type="HBoxContainer" parent="right/shop_container/item_2/item"]
+layout_mode = 2
+
+[node name="icon" type="TextureRect" parent="right/shop_container/item_2/item/info"]
+layout_mode = 2
+texture = ExtResource("2_bvwuu")
+expand_mode = 2
+
+[node name="text" type="VBoxContainer" parent="right/shop_container/item_2/item/info"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="right/shop_container/item_2/item/info/text"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Bubble-Upgrade"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="right/shop_container/item_2/item/info/text"]
+layout_mode = 2
+
+[node name="cost_label" type="Label" parent="right/shop_container/item_2/item/info/text/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Cost: "
+
+[node name="cost_amount" type="Label" parent="right/shop_container/item_2/item/info/text/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "xx"
+
+[node name="upgrades" type="MarginContainer" parent="right/shop_container/item_2/item"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+
+[node name="upgrade_amounts" type="HBoxContainer" parent="right/shop_container/item_2/item/upgrades"]
+layout_mode = 2
+
+[node name="upgrade_1" type="TextureRect" parent="right/shop_container/item_2/item/upgrades/upgrade_amounts"]
+layout_mode = 2
+texture = ExtResource("5_gyvah")
+expand_mode = 2
+
+[node name="upgrade_2" type="TextureRect" parent="right/shop_container/item_2/item/upgrades/upgrade_amounts"]
+layout_mode = 2
+texture = ExtResource("5_gyvah")
+expand_mode = 2
+
+[node name="upgrade_3" type="TextureRect" parent="right/shop_container/item_2/item/upgrades/upgrade_amounts"]
+layout_mode = 2
+texture = ExtResource("5_gyvah")
+expand_mode = 2
+
+[node name="Button" type="Button" parent="right/shop_container/item_2/item/upgrades/upgrade_amounts"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+theme_override_styles/disabled = SubResource("StyleBoxFlat_p8mop")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jy7kf")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fita0")
+text = "BUY"
+
+[node name="item_3" type="MarginContainer" parent="right/shop_container"]
+layout_mode = 2
+tooltip_text = "Makes you able to see further."
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="background" type="ColorRect" parent="right/shop_container/item_3"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.470588)
+
+[node name="item" type="VBoxContainer" parent="right/shop_container/item_3"]
+layout_mode = 2
+
+[node name="info" type="HBoxContainer" parent="right/shop_container/item_3/item"]
+layout_mode = 2
+
+[node name="icon" type="TextureRect" parent="right/shop_container/item_3/item/info"]
+layout_mode = 2
+texture = ExtResource("3_wyuau")
+expand_mode = 2
+
+[node name="text" type="VBoxContainer" parent="right/shop_container/item_3/item/info"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="right/shop_container/item_3/item/info/text"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Radar-Upgrade"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="right/shop_container/item_3/item/info/text"]
+layout_mode = 2
+
+[node name="cost_label" type="Label" parent="right/shop_container/item_3/item/info/text/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Cost: "
+
+[node name="cost_amount" type="Label" parent="right/shop_container/item_3/item/info/text/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "xx"
+
+[node name="upgrades" type="MarginContainer" parent="right/shop_container/item_3/item"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+
+[node name="upgrade_amounts" type="HBoxContainer" parent="right/shop_container/item_3/item/upgrades"]
+layout_mode = 2
+
+[node name="upgrade_1" type="TextureRect" parent="right/shop_container/item_3/item/upgrades/upgrade_amounts"]
+layout_mode = 2
+texture = ExtResource("5_gyvah")
+expand_mode = 2
+
+[node name="upgrade_2" type="TextureRect" parent="right/shop_container/item_3/item/upgrades/upgrade_amounts"]
+layout_mode = 2
+texture = ExtResource("5_gyvah")
+expand_mode = 2
+
+[node name="upgrade_3" type="TextureRect" parent="right/shop_container/item_3/item/upgrades/upgrade_amounts"]
+layout_mode = 2
+texture = ExtResource("5_gyvah")
+expand_mode = 2
+
+[node name="Button" type="Button" parent="right/shop_container/item_3/item/upgrades/upgrade_amounts"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+theme_override_styles/disabled = SubResource("StyleBoxFlat_p8mop")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jy7kf")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fita0")
+text = "BUY"
