@@ -14,7 +14,6 @@ extends Node2D
 @onready var float_trigger_timer: Timer = $FloatTrigger
 
 var bubbled := false
-var orig_shape :Shape2D
 var new_shape :Shape2D
 var flickable :Flickable
 var popable :Popable
@@ -26,9 +25,8 @@ var tex_per_tier = [
 	"res://assets/sprites/bubbles/bubble_l.png"
 ]
 
-func setup(size_tier :int, ori_shape :Shape2D) -> void:
+func setup(size_tier :int) -> void:
 	$Sprite2D.texture = load(tex_per_tier[size_tier])
-	orig_shape = ori_shape.duplicate()
 	new_shape = CircleShape2D.new()
 	new_shape.radius = size_per_tier[size_tier] / 2
 	
@@ -62,6 +60,7 @@ func bubble_up() -> void:
 # returns true if bubble died
 func damage_bubble(amount :int) -> bool:
 	bubble_lives -= amount
+	print(bubble_lives)
 	if bubble_lives <= 0:
 		pop_sfx_player.play()
 		float_sfx_player.stop()
@@ -71,7 +70,7 @@ func damage_bubble(amount :int) -> bool:
 		Animator.play()
 		get_parent().input_pickable = false
 		get_parent().mass = 1
-		get_parent().call_deferred("set_collider_shape", orig_shape)
+		get_parent().call_deferred("reset_collider_shape")
 		get_parent().body_entered.disconnect(bubble_bumped)
 		get_parent().check_input.erase(flickable)
 		get_parent().check_input.erase(popable)

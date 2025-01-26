@@ -37,6 +37,9 @@ var bubbleable :Bubbleable
 var worth :int
 var resource_type
 
+var orig_shape :Shape2D
+var should_reset := false
+
 var captured := false
 var check_input = []
 
@@ -66,14 +69,20 @@ func _ready() -> void:
 	Collider.shape.radius = (Sprite.texture.get_width() * Sprite.scale.x) / 2
 	
 	if bubbleable:
-		bubbleable.setup(size_tier, Collider.shape)
+		bubbleable.setup(size_tier)
+		orig_shape = Collider.shape.duplicate()
 
 func _physics_process(delta: float) -> void:
+	if should_reset:
+		should_reset = false
+		Collider.shape = orig_shape
 	move_and_collide(linear_velocity*delta, false, 0.01, false)
 
 func set_collider_shape(shape :Shape2D) -> void:
 	Collider.shape = shape
 
+func reset_collider_shape() -> void:
+	should_reset = true
 
 func _on_input_event(viewport, event, shape_idx):
 	event = event as InputEventMouseButton
