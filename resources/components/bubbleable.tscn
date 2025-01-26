@@ -123,5 +123,11 @@ script = ExtResource("1_761y0")
 visible = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+top_level = true
 sprite_frames = SubResource("SpriteFrames_ufmmb")
 animation = &"m"
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../AnimatedSprite2D")
+update_rotation = false
+update_scale = false
