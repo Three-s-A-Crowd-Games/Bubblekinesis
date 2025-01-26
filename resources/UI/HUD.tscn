@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://drgi0nu2a0a1b"]
+[gd_scene load_steps=10 format=3 uid="uid://drgi0nu2a0a1b"]
 
+[ext_resource type="Script" path="res://resources/UI/ressources.gd" id="1_6xfyr"]
 [ext_resource type="Texture2D" uid="uid://dy5bsp2opdeqf" path="res://assets/sprites/UI/red_icon.png" id="1_utx03"]
 [ext_resource type="Texture2D" uid="uid://isp6gl3heem1" path="res://assets/sprites/UI/blue_icon.png" id="2_bvwuu"]
 [ext_resource type="Texture2D" uid="uid://d0k3kejn4egf6" path="res://assets/sprites/UI/silver_icon.png" id="3_wyuau"]
-[ext_resource type="Texture2D" uid="uid://camb461vak4b1" path="res://assets/sprites/UI/bubble_s.png" id="4_qe2vp"]
+[ext_resource type="Script" path="res://resources/UI/bubble_container.gd" id="4_wc44v"]
 [ext_resource type="Texture2D" uid="uid://c2t7oebfug13y" path="res://assets/sprites/UI/upgrade_amount_empty.png" id="5_gyvah"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p8mop"]
@@ -49,6 +50,7 @@ color = Color(0, 0, 0, 0.470588)
 
 [node name="ressources" type="VBoxContainer" parent="left/left/ressource_container"]
 layout_mode = 2
+script = ExtResource("1_6xfyr")
 
 [node name="red_container" type="MarginContainer" parent="left/left/ressource_container/ressources"]
 layout_mode = 2
@@ -110,16 +112,8 @@ text = "xx"
 [node name="bubble_container" type="HBoxContainer" parent="left/left"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-
-[node name="bubble_1" type="TextureRect" parent="left/left/bubble_container"]
-layout_mode = 2
-texture = ExtResource("4_qe2vp")
-expand_mode = 2
-
-[node name="bubble_2" type="TextureRect" parent="left/left/bubble_container"]
-layout_mode = 2
-texture = ExtResource("4_qe2vp")
-expand_mode = 2
+size_flags_vertical = 3
+script = ExtResource("4_wc44v")
 
 [node name="right" type="MarginContainer" parent="."]
 layout_mode = 1

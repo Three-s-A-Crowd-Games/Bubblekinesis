@@ -24,12 +24,16 @@ var cur_net_level = 0:
 var cur_max_bubbles_level = 0:
 	set(value):
 		cur_net_level = value
+		if value < GameState.max_bubbles_per_level.size() and value >= 0:
+			max_bubbles = max_bubbles_per_level[value]
 		upgraded_max_bubbles.emit(value)
 
 var cur_bubbles := 0:
 	set(value):
 		new_cur_bubbles.emit(value)
 		cur_bubbles = value
+var max_bubbles_per_level = [2, 3 , 4, 5]
+@onready var max_bubbles :int = max_bubbles_per_level[0]
 
 var captured_resources = {
 	ResourceType.SILVER: 0,
