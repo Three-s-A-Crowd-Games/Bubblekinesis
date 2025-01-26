@@ -91,7 +91,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_h67eh")
 }],
-"loop": true,
+"loop": false,
 "name": &"m",
 "speed": 10.0
 }, {
@@ -111,7 +111,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_j07td")
 }],
-"loop": true,
+"loop": false,
 "name": &"s",
 "speed": 10.0
 }]
@@ -124,4 +124,4 @@ visible = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ufmmb")
-animation = &"s"
+animation = &"m"
