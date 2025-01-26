@@ -4,6 +4,7 @@ extends Inputable
 
 @export var impuls_strength := 1.0
 @export var min_distance := 5
+@export var flick_sound: AudioStream = preload("res://assets/sound/sfx/swoosh.mp3")
 @export_group("Arrow", "arrow")
 @export var arrow_max_drag_distance := 20
 @export var arrow_color_gradient: Gradient = preload("res://resources/components/flickable_arrow_gradient.tres")
@@ -22,6 +23,7 @@ var min_distance_reached := false
 var line := Line2D.new()
 var arrow_head := Sprite2D.new()
 var body: RigidBody2D
+var flick_sfx_player := AudioStreamPlayer2D.new()
 
 func _init(spobj: RigidBody2D):
 	body = spobj
@@ -32,8 +34,13 @@ func _ready():
 	line.add_point(Vector2.ZERO)
 	line.add_point(Vector2.ZERO)
 	arrow_head.texture = arrow_head_texture
+	flick_sfx_player.stream = flick_sound
+	flick_sfx_player.bus = &"SpaceSFX"
+	flick_sfx_player.volume_db = -16
+	flick_sfx_player.max_distance = 500
 	add_child(line)
 	add_child(arrow_head)
+	add_child(flick_sfx_player)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -86,6 +93,7 @@ func release_input(already_handled :bool) -> bool:
 	if min_distance_reached:
 		var dir := line.to_global(line.points[1]) - body.global_position
 		body.apply_central_impulse(dir * impuls_strength * body.mass)
+		flick_sfx_player.play()
 		hide()
 		return true
 	return false
