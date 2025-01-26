@@ -8,7 +8,7 @@ var cur_upgrade = 0
 var zoom_upgrades = [ 2, 1, 0.5, 0.25 ]
 
 func _ready() -> void:
-	GameState.play_area_update.connect(change_play_area)
+	GameState.upgraded_play_area.connect(change_play_area)
 	change_play_area(GameState.play_area)
 
 func _input(event: InputEvent) -> void:

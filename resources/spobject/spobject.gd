@@ -83,6 +83,7 @@ func _on_input_event(viewport, event, shape_idx):
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 		BubbleGenerator.can_draw = true
+		var already_handled := false
 		for inputable in check_input:
-			if inputable.release_input():
-				return
+			if inputable.release_input(already_handled):
+				already_handled = true

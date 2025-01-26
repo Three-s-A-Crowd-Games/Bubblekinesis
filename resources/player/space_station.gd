@@ -12,7 +12,7 @@ extends StaticBody2D
 @onready var target_rot = $Net.rotation
 
 func _ready() -> void:
-	GameState.net_upgrade.connect(upgrade_net)
+	GameState.upgraded_net.connect(upgrade_net)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_action("rmb") or event is InputEventMouseMotion and Input.is_action_pressed("rmb"):

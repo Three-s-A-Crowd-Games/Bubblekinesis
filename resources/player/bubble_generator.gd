@@ -5,6 +5,7 @@ class_name BubbleGenerator
 @export var auto_close_gap_distance = 30
 @export var min_draw_step_size = 2
 @export var base_line_thickness = 3
+@export var max_bubbles_per_level = [2, 3 , 4, 5]
 @export var debug_draw := false
 
 static var can_draw := true
@@ -14,8 +15,12 @@ var debug_draw_poly: PackedVector2Array
 var debug_target_rect: Rect2
 var debug_query_rect: Rect2
 
+@onready var max_bubbles :int = max_bubbles_per_level[0]
+
 @onready var cam: Camera2D = $"../PlayerCam"
 
+func _ready() -> void:
+	GameState.upgraded_max_bubbles.connect(max_bubble_upgrade)
 
 func _physics_process(_delta) -> void:
 	if debug_draw and Input.is_action_just_pressed("ui_cancel"):
@@ -25,6 +30,12 @@ func _physics_process(_delta) -> void:
 		queue_redraw()
 	
 	if is_drawing or points.size() == 0: return
+	
+	if GameState.cur_bubbles >= max_bubbles:
+		points.clear()
+		queue_redraw()
+		prints("No bubble, because max amount of bubbles reached")
+		return
 	
 	var begin_end_distance := points[0].distance_to(points[-1])
 	if begin_end_distance > auto_close_gap_distance:
@@ -76,6 +87,7 @@ func _physics_process(_delta) -> void:
 			print(bubbleable.bubbled)
 			if not bubbleable.bubbled:
 				bubbleable.bubble_up()
+				GameState.cur_bubbles += 1
 				print("Successfully bubbled up")
 			else:
 				print("Spobject is already bubbled")
@@ -136,3 +148,7 @@ func _draw():
 
 func mouse_to_screen_pos(pos: Vector2) -> Vector2:
 	return pos / cam.zoom - get_viewport_rect().size / (cam.zoom * 2) + cam.position
+
+func max_bubble_upgrade(new_level :int) -> void:
+	if new_level < max_bubbles_per_level.size() and new_level >= 0:
+		max_bubbles = max_bubbles_per_level[new_level]

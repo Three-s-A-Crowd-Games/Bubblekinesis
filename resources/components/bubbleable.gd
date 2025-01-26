@@ -55,6 +55,7 @@ func damage_bubble(amount :int) -> bool:
 	if bubble_lives <= 0:
 		bubbled = false
 		$Sprite2D.visible = false
+		GameState.cur_bubbles -= 1
 		Animator.play()
 		get_parent().mass = 1
 		get_parent().call_deferred("set_collider_shape", orig_shape)

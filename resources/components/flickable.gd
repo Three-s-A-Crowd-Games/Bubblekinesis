@@ -75,7 +75,8 @@ func input() -> void:
 	init_pos = line.get_local_mouse_position()
 	dragging = true
 
-func release_input() -> bool:
+func release_input(already_handled :bool) -> bool:
+	if already_handled: return false
 	dragging = false
 	
 	if min_distance_reached:

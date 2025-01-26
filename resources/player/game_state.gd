@@ -25,7 +25,11 @@ var cur_max_bubbles_level = 0:
 	set(value):
 		cur_net_level = value
 		upgraded_max_bubbles.emit(value)
-	
+
+var cur_bubbles := 0:
+	set(value):
+		new_cur_bubbles.emit(value)
+		cur_bubbles = value
 
 var captured_resources = {
 	ResourceType.SILVER: 0,
@@ -41,3 +45,4 @@ signal resources_changed(new_amount :int, type :ResourceType)
 signal upgraded_play_area(play_area :Vector2)
 signal upgraded_net(new_level :int)
 signal upgraded_max_bubbles(new_level :int)
+signal new_cur_bubbles(amount :int)
