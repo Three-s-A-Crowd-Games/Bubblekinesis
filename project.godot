@@ -30,8 +30,10 @@ window/stretch/scale_mode="integer"
 [file_customization]
 
 folder_colors={
-"res://assets/": "pink",
-"res://assets/sound/": "teal"
+"res://assets/": "red",
+"res://assets/shader/": "blue",
+"res://assets/sound/": "teal",
+"res://assets/sprites/": "pink"
 }
 
 [input]
