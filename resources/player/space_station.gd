@@ -2,12 +2,17 @@ class_name SpaceStation
 
 extends StaticBody2D
 
-@export var net_rotation_speed :float = 0.05
+@export var net_rotation_speeds = [0.05, 0.1, 0.15, 0.2]
+
+@onready var cur_net_rotation_speed = net_rotation_speeds[0]
 
 @onready var Sprite := $StationSprite
 
 @onready var Net := $Net
 @onready var target_rot = $Net.rotation
+
+func _ready() -> void:
+	GameState.net_upgrade.connect(upgrade_net)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_action("rmb") or event is InputEventMouseMotion and Input.is_action_pressed("rmb"):
@@ -15,8 +20,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta :float) -> void:
 	if Net.rotation != target_rot:
-		Net.rotation = rotate_toward(Net.rotation, target_rot, net_rotation_speed)
-
+		Net.rotation = rotate_toward(Net.rotation, target_rot, cur_net_rotation_speed)
 
 func _on_capture_area_body_entered(body: Node2D) -> void:
 	if body is Spobject and body.type == Spobject.Type.RESOURCE:
@@ -30,3 +34,7 @@ func _on_capture_area_body_entered(body: Node2D) -> void:
 
 func delete_body(body :Node2D) -> void:
 	body.queue_free()
+	
+func upgrade_net(new_level :int) -> void:
+	if new_level < net_rotation_speeds.size() and new_level >= 0:
+		cur_net_rotation_speed = net_rotation_speeds[new_level]
