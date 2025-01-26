@@ -71,8 +71,7 @@ func bubble_bumped(body :Node2D) -> void:
 	if get_parent().captured:
 		return
 	if body is Spobject:
-		var other_bubbleable = body.find_children("*", "Bubbleable", false, false)
-		if other_bubbleable.size() == 1 and other_bubbleable[0].bubbled:
+		if body.bubbleable == 1 and body.bubbleable.bubbled:
 			return
 	if damage_bubble(1):
 		get_parent().linear_velocity = Vector2.ZERO

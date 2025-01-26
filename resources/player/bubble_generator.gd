@@ -75,12 +75,10 @@ func _physics_process(_delta) -> void:
 			print("Collider is no Spobject")
 			
 	if max_ratio >= generation_area_threshold:
-		var search_res := t_node.find_children("*", "Bubbleable", false, false)
-		if search_res.size() > 0:
-			var bubbleable: Bubbleable = search_res[0]
-			print(bubbleable.bubbled)
-			if not bubbleable.bubbled:
-				bubbleable.bubble_up()
+		if t_node.bubbleable:
+			print(t_node.bubbleable.bubbled)
+			if not t_node.bubbleable.bubbled:
+				t_node.bubbleable.bubble_up()
 				GameState.cur_bubbles += 1
 				print("Successfully bubbled up")
 			else:

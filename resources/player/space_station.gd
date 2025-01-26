@@ -25,7 +25,9 @@ func _process(delta :float) -> void:
 func _on_capture_area_body_entered(body: Node2D) -> void:
 	if body is Spobject and body.type == Spobject.Type.RESOURCE:
 		body.captured = true
-		GameState.change_resources(body.worth, body.resource_type) 
+		GameState.change_resources(body.worth, body.resource_type)
+		if body.bubbleable.bubbled:
+			GameState.cur_bubbles -=1
 		var tween := get_tree().create_tween()
 		tween.tween_property(body, "scale", Vector2(0,0), 0.5)
 		tween.parallel().tween_property(body, "global_position", Vector2(0,0), 0.5)

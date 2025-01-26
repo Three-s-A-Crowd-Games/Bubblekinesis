@@ -30,6 +30,7 @@ const comets = {
 var chance_for_resource := 0.5
 var type
 var size_tier :int
+var bubbleable :Bubbleable
 
 var worth :int
 var resource_type
@@ -40,7 +41,6 @@ var check_input = []
 func _ready() -> void:
 	type = Type.RESOURCE if randf() < chance_for_resource else Type.COMET
 	
-	var bubbleable :Bubbleable
 	
 	if type == Type.RESOURCE:
 		bubbleable = load("res://resources/components/bubbleable.tscn").instantiate()
