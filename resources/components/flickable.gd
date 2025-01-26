@@ -3,7 +3,7 @@ class_name Flickable
 extends Inputable
 
 @export var impuls_strength := 1.0
-@export var min_distance := 10
+@export var min_distance := 5
 @export_group("Arrow", "arrow")
 @export var arrow_max_drag_distance := 20
 @export var arrow_color_gradient: Gradient = preload("res://resources/components/flickable_arrow_gradient.tres")
