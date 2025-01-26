@@ -37,6 +37,7 @@ func setup(size_tier :int, ori_shape :Shape2D) -> void:
 
 func bubble_up() -> void:
 	if not get_parent().captured:
+		get_parent().input_pickable = true
 		bubbled = true
 		get_parent().mass = 0.001
 		get_parent().set_collider_shape(new_shape)
@@ -57,6 +58,7 @@ func damage_bubble(amount :int) -> bool:
 		$Sprite2D.visible = false
 		GameState.cur_bubbles -= 1
 		Animator.play()
+		get_parent().input_pickable = false
 		get_parent().mass = 1
 		get_parent().call_deferred("set_collider_shape", orig_shape)
 		get_parent().body_entered.disconnect(bubble_bumped)

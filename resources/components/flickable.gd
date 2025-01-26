@@ -25,7 +25,6 @@ var body: RigidBody2D
 
 func _init(spobj: RigidBody2D):
 	body = spobj
-	spobj.input_pickable = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

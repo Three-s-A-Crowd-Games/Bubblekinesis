@@ -48,6 +48,7 @@ scale = Vector2(3, 3)
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
+physics_object_picking = true
 size = Vector2i(426, 240)
 render_target_update_mode = 4
 
