@@ -4,7 +4,6 @@ extends Camera2D
 @export var zoom_sens = 0.1
 @export var max_zoom = 3
 
-var cur_upgrade = 0
 var zoom_upgrades = [ 2, 1, 0.5, 0.25 ]
 
 func _ready() -> void:
@@ -31,4 +30,4 @@ func change_play_area(play_area :Vector2) -> void:
 	limit_bottom = play_area.x
 
 func change_zoom(zoom_level :Vector2) -> void:
-	zoom = clamp(zoom_level, Vector2(zoom_upgrades[cur_upgrade],zoom_upgrades[cur_upgrade]), Vector2(max_zoom,max_zoom))
+	zoom = clamp(zoom_level, Vector2(zoom_upgrades[GameState.cur_play_area_upgrade],zoom_upgrades[GameState.cur_play_area_upgrade]), Vector2(max_zoom,max_zoom))

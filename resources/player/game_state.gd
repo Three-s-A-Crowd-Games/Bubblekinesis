@@ -38,9 +38,9 @@ var max_bubbles_per_level = [2, 3 , 4, 5]
 @onready var max_bubbles :int = max_bubbles_per_level[0]
 
 var captured_resources = {
-	ResourceType.SILVER: 4,
-	ResourceType.BLUE: 4,
-	ResourceType.RED: 4,
+	ResourceType.SILVER: 0,
+	ResourceType.BLUE: 0,
+	ResourceType.RED: 0,
 }
 
 var base_upgrade_cost = 5

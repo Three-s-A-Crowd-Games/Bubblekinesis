@@ -50,6 +50,8 @@ func _ready() -> void:
 	Fog_Noise.fractal_lacunarity = 2
 	Fog_Noise.fractal_octaves = 6
 	
+	GameState.upgraded_play_area.connect(radar_upgrade)
+	
 	init_spawns()
 
 func _process(delta :float) -> void:
@@ -99,6 +101,20 @@ func spawn_new_spobjects() -> void:
 		for y in range((GameState.play_area_upgrades[GameState.cur_play_area_upgrade + 1] * 2) / 48):
 			spawn_new_spobj(x,y)
 	
+func radar_upgrade(size :Vector2) -> void:
+	var act_size = size * 2
+	$Fog.size = act_size
+	$Fog.position = size * -1
+	var red_tex :GradientTexture2D = $Fog.material.get_shader_parameter("RED_TEXTURE")
+	var fog_tex :NoiseTexture2D = $Fog.material.get_shader_parameter("NOISE_TEX")
+	red_tex.width = act_size.x
+	red_tex.height = act_size.y
+	fog_tex.width = act_size.x
+	fog_tex.height = act_size.y
+	
+	Play_Area_Coll.shape.size = GameState.play_area * 2
+	var next_size = GameState.play_area_upgrades[GameState.cur_play_area_upgrade+1]
+	Next_Area_Coll.shape.size = Vector2(next_size, next_size) * 2
 
 func _on_play_area_body_exited(body: Node2D) -> void:
 	if body is Spobject:
