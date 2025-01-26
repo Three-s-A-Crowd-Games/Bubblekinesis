@@ -26,7 +26,15 @@ func _physics_process(_delta) -> void:
 		debug_query_rect = Rect2()
 		queue_redraw()
 	
-	if is_drawing or points.size() == 0: return
+	if is_drawing or points.size() == 0:
+		return
+		
+	if points.size() < 3:
+		bubbleup_canceled.emit()
+		points.clear()
+		queue_redraw()
+		prints("Not enough points for calculation")
+		return
 	
 	if GameState.cur_bubbles >= GameState.max_bubbles:
 		bubbleup_canceled.emit()
