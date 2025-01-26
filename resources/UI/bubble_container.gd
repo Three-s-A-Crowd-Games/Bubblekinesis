@@ -4,17 +4,24 @@ var tex_recs = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	update_bubbles(0)
+	GameState.upgraded_max_bubbles.connect(update_bubbles)
+	GameState.new_cur_bubbles.connect(redo_tex)
+
+func update_bubbles(_level :int) -> void:
+	for child in get_children():
+		child.queue_free()
+	tex_recs = []
+	
 	for i in range(GameState.max_bubbles):
 		add_bubble()
-	GameState.upgraded_max_bubbles.connect(add_bubble)
-	GameState.new_cur_bubbles.connect(redo_tex)
+	redo_tex(GameState.cur_bubbles)
 
 func add_bubble() -> void:
 	var tex_rec = TextureRect.new()
 	tex_rec.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 	add_child(tex_rec)
 	tex_recs.append(tex_rec)
-	redo_tex(GameState.cur_bubbles)
 
 func redo_tex(amount :int) -> void:
 	for i in range(tex_recs.size()):

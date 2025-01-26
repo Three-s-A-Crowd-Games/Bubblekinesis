@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://drgi0nu2a0a1b"]
+[gd_scene load_steps=11 format=3 uid="uid://drgi0nu2a0a1b"]
 
 [ext_resource type="Script" path="res://resources/UI/ressources.gd" id="1_6xfyr"]
 [ext_resource type="Texture2D" uid="uid://dy5bsp2opdeqf" path="res://assets/sprites/UI/red_icon.png" id="1_utx03"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d0k3kejn4egf6" path="res://assets/sprites/UI/silver_icon.png" id="3_wyuau"]
 [ext_resource type="Script" path="res://resources/UI/bubble_container.gd" id="4_wc44v"]
 [ext_resource type="Texture2D" uid="uid://c2t7oebfug13y" path="res://assets/sprites/UI/upgrade_amount_empty.png" id="5_gyvah"]
+[ext_resource type="Script" path="res://resources/UI/shop_container.gd" id="6_c0dvh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p8mop"]
 bg_color = Color(0.351563, 0.351563, 0.351563, 1)
@@ -131,6 +132,7 @@ theme_override_constants/margin_right = 5
 
 [node name="shop_container" type="VBoxContainer" parent="right"]
 layout_mode = 2
+script = ExtResource("6_c0dvh")
 
 [node name="item_1" type="MarginContainer" parent="right/shop_container"]
 layout_mode = 2
