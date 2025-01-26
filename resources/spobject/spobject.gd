@@ -10,13 +10,13 @@ enum Type {
 	COMET
 }
 
-# Path and Size-Tier: S=0, M=1, L=2
-const resources = {
-	"res://assets/sprites/spobjects/bubbleable/rocket_part.png": 2,
-	"res://assets/sprites/spobjects/bubbleable/rocket_part_2.png": 1,
-	"res://assets/sprites/spobjects/bubbleable/satellite.png": 2,
-	"res://assets/sprites/spobjects/bubbleable/solar_panel_1.png": 2,
-	"res://assets/sprites/spobjects/bubbleable/sputnik.png": 2,
+# Path and [Size-Tier: S=0, M=1, L=2 , ResourceType]
+var resources = {
+	"res://assets/sprites/spobjects/bubbleable/rocket_part.png": [2, GameState.ResourceType.RED],
+	"res://assets/sprites/spobjects/bubbleable/rocket_part_2.png": [1, GameState.ResourceType.BLUE],
+	"res://assets/sprites/spobjects/bubbleable/satellite.png": [2, GameState.ResourceType.RED],
+	"res://assets/sprites/spobjects/bubbleable/solar_panel_1.png": [2, GameState.ResourceType.BLUE],
+	"res://assets/sprites/spobjects/bubbleable/sputnik.png": [2, GameState.ResourceType.SILVER],
 }
 
 const comets = {
@@ -30,7 +30,10 @@ const comets = {
 var chance_for_resource := 0.5
 var type
 var size_tier :int
+
 var worth :int
+var resource_type
+
 var captured := false
 var check_input = []
 
@@ -44,7 +47,8 @@ func _ready() -> void:
 		add_child(bubbleable)
 		
 		var key :String = resources.keys()[randi_range(0,resources.keys().size() - 1)]
-		size_tier = resources[key]
+		size_tier = resources[key][0]
+		resource_type = resources[key][1]
 		Sprite.texture = load(key)
 		worth = 1
 	elif type == Type.COMET:
