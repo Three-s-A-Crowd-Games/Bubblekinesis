@@ -17,6 +17,7 @@ var resources = {
 	"res://assets/sprites/spobjects/bubbleable/satellite.png": [2, GameState.ResourceType.RED],
 	"res://assets/sprites/spobjects/bubbleable/solar_panel_1.png": [2, GameState.ResourceType.BLUE],
 	"res://assets/sprites/spobjects/bubbleable/sputnik.png": [2, GameState.ResourceType.SILVER],
+	"res://assets/sprites/spobjects/bubbleable/light.png": [0, GameState.ResourceType.SILVER],
 }
 
 const comets = {
